@@ -1,6 +1,3 @@
-
-"""Manage a university course catalog and enrollment system."""
-
 import hashlib
 import secrets
 
@@ -35,7 +32,7 @@ def enroll_student(
     credits_registered=3,
     audit_trail=None,
 ):
-    """Enroll a student in an available course and update tuition."""
+   
     global total_tuition
 
     if audit_trail is None:
@@ -61,7 +58,6 @@ def enroll_student(
 
 
 def drop_course(course_id):
-    """Return a seat to a valid course."""
     if course_id not in courses:
         return False
 
@@ -72,7 +68,6 @@ def drop_course(course_id):
 
 
 def check_course_status(course_id):
-    """Return whether a course exists and is open."""
     course = courses.get(course_id)
 
     if course is None:
@@ -82,7 +77,6 @@ def check_course_status(course_id):
 
 
 def calculate_scholarship_tuition(course_id, discount_rate):
-    """Calculate tuition after applying a valid discount rate."""
     if course_id not in courses:
         raise ValueError("Unknown course ID")
 
@@ -97,19 +91,16 @@ def calculate_scholarship_tuition(course_id, discount_rate):
 
 
 def generate_student_hash(roll_no):
-    """Return a SHA-256 digest of a student roll number."""
     return hashlib.sha256(
         roll_no.encode("utf-8")
     ).hexdigest()
 
 
 def generate_enrollment_otp():
-    """Generate a four-digit OTP using a secure random source."""
     return secrets.randbelow(9000) + 1000
 
 
 def export_course_roster(filename="course_roster.txt"):
-    """Write the course catalog to a text file."""
     with open(filename, "w", encoding="utf-8") as roster_file:
         roster_file.write(str(courses))
 
@@ -117,7 +108,6 @@ def export_course_roster(filename="course_roster.txt"):
 
 
 def get_open_courses_summary(course_catalog):
-    """Count all currently open courses."""
     return sum(
         not details["is_closed"]
         for details in course_catalog.values()
@@ -125,7 +115,6 @@ def get_open_courses_summary(course_catalog):
 
 
 def main():
-    """Run a demonstration of course enrollment features."""
     enroll_student("CS101", "Kritika", 4)
     drop_course("CS202")
 
